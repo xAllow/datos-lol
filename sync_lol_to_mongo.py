@@ -51,6 +51,19 @@ def normalize_match_data(match_data: dict[str, Any]) -> dict[str, Any]:
                 "%Y-%m-%d %H:%M:%S"
             )
 
+    # Añadir champion_damage_type a cada participant
+    try:
+        import json
+        with open("campeones.json", "r", encoding="utf-8") as f:
+            campeones = json.load(f)
+        champion_type_map = {c["name"]: c["type"] for c in campeones}
+        if "participants" in info:
+            for participant in info["participants"]:
+                champ_name = participant.get("championName")
+                participant["champion_damage_type"] = champion_type_map.get(champ_name, "UNKNOWN")
+    except Exception as e:
+        print(f"Error añadiendo champion_damage_type: {e}")
+
     return match_data
 
 

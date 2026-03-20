@@ -1,0 +1,690 @@
+[
+  {
+    "name": "Aatrox",
+    "type": "AD"
+  },
+  {
+    "name": "Ahri",
+    "type": "AP"
+  },
+  {
+    "name": "Akali",
+    "type": "AP"
+  },
+  {
+    "name": "Akshan",
+    "type": "AD"
+  },
+  {
+    "name": "Alistar",
+    "type": "AP"
+  },
+  {
+    "name": "Ambessa",
+    "type": "AD"
+  },
+  {
+    "name": "Amumu",
+    "type": "AP"
+  },
+  {
+    "name": "Anivia",
+    "type": "AP"
+  },
+  {
+    "name": "Annie",
+    "type": "AP"
+  },
+  {
+    "name": "Aphelios",
+    "type": "AD"
+  },
+  {
+    "name": "Ashe",
+    "type": "AD"
+  },
+  {
+    "name": "Aurelion Sol",
+    "type": "AP"
+  },
+  {
+    "name": "Aurora",
+    "type": "AP"
+  },
+  {
+    "name": "Azir",
+    "type": "AP"
+  },
+  {
+    "name": "Bard",
+    "type": "AP"
+  },
+  {
+    "name": "Bel'Veth",
+    "type": "AD"
+  },
+  {
+    "name": "Blitzcrank",
+    "type": "AP"
+  },
+  {
+    "name": "Brand",
+    "type": "AP"
+  },
+  {
+    "name": "Braum",
+    "type": "AD"
+  },
+  {
+    "name": "Briar",
+    "type": "AD"
+  },
+  {
+    "name": "Caitlyn",
+    "type": "AD"
+  },
+  {
+    "name": "Camille",
+    "type": "AD"
+  },
+  {
+    "name": "Cassiopeia",
+    "type": "AP"
+  },
+  {
+    "name": "Cho'Gath",
+    "type": "AP"
+  },
+  {
+    "name": "Corki",
+    "type": "AD"
+  },
+  {
+    "name": "Darius",
+    "type": "AD"
+  },
+  {
+    "name": "Diana",
+    "type": "AP"
+  },
+  {
+    "name": "Dr. Mundo",
+    "type": "AD"
+  },
+  {
+    "name": "Draven",
+    "type": "AD"
+  },
+  {
+    "name": "Ekko",
+    "type": "AP"
+  },
+  {
+    "name": "Elise",
+    "type": "AP"
+  },
+  {
+    "name": "Evelynn",
+    "type": "AP"
+  },
+  {
+    "name": "Ezreal",
+    "type": "AD"
+  },
+  {
+    "name": "Fiddlesticks",
+    "type": "AP"
+  },
+  {
+    "name": "Fiora",
+    "type": "AD"
+  },
+  {
+    "name": "Fizz",
+    "type": "AP"
+  },
+  {
+    "name": "Galio",
+    "type": "AP"
+  },
+  {
+    "name": "Gangplank",
+    "type": "AD"
+  },
+  {
+    "name": "Garen",
+    "type": "AD"
+  },
+  {
+    "name": "Gnar",
+    "type": "AD"
+  },
+  {
+    "name": "Gragas",
+    "type": "AP"
+  },
+  {
+    "name": "Graves",
+    "type": "AD"
+  },
+  {
+    "name": "Gwen",
+    "type": "AP"
+  },
+  {
+    "name": "Hecarim",
+    "type": "AD"
+  },
+  {
+    "name": "Heimerdinger",
+    "type": "AP"
+  },
+  {
+    "name": "Hwei",
+    "type": "AP"
+  },
+  {
+    "name": "Illaoi",
+    "type": "AD"
+  },
+  {
+    "name": "Irelia",
+    "type": "AD"
+  },
+  {
+    "name": "Ivern",
+    "type": "AP"
+  },
+  {
+    "name": "Janna",
+    "type": "AP"
+  },
+  {
+    "name": "Jarvan IV",
+    "type": "AD"
+  },
+  {
+    "name": "Jax",
+    "type": "HYBRID"
+  },
+  {
+    "name": "Jayce",
+    "type": "AD"
+  },
+  {
+    "name": "Jhin",
+    "type": "AD"
+  },
+  {
+    "name": "Jinx",
+    "type": "AD"
+  },
+  {
+    "name": "K'Sante",
+    "type": "AD"
+  },
+  {
+    "name": "Kai'Sa",
+    "type": "HYBRID"
+  },
+  {
+    "name": "Kalista",
+    "type": "AD"
+  },
+  {
+    "name": "Karma",
+    "type": "AP"
+  },
+  {
+    "name": "Karthus",
+    "type": "AP"
+  },
+  {
+    "name": "Kassadin",
+    "type": "AP"
+  },
+  {
+    "name": "Katarina",
+    "type": "AP"
+  },
+  {
+    "name": "Kayle",
+    "type": "AP"
+  },
+  {
+    "name": "Kayn",
+    "type": "AD"
+  },
+  {
+    "name": "Kennen",
+    "type": "AP"
+  },
+  {
+    "name": "Kha'Zix",
+    "type": "AD"
+  },
+  {
+    "name": "Kindred",
+    "type": "AD"
+  },
+  {
+    "name": "Kled",
+    "type": "AD"
+  },
+  {
+    "name": "Kog'Maw",
+    "type": "HYBRID"
+  },
+  {
+    "name": "LeBlanc",
+    "type": "AP"
+  },
+  {
+    "name": "Lee Sin",
+    "type": "AD"
+  },
+  {
+    "name": "Leona",
+    "type": "AD"
+  },
+  {
+    "name": "Lillia",
+    "type": "AP"
+  },
+  {
+    "name": "Lissandra",
+    "type": "AP"
+  },
+  {
+    "name": "Lucian",
+    "type": "AD"
+  },
+  {
+    "name": "Lulu",
+    "type": "AP"
+  },
+  {
+    "name": "Lux",
+    "type": "AP"
+  },
+  {
+    "name": "Malphite",
+    "type": "AP"
+  },
+  {
+    "name": "Malzahar",
+    "type": "AP"
+  },
+  {
+    "name": "Maokai",
+    "type": "AP"
+  },
+  {
+    "name": "Master Yi",
+    "type": "AD"
+  },
+  {
+    "name": "Mel",
+    "type": "AP"
+  },
+  {
+    "name": "Milio",
+    "type": "AP"
+  },
+  {
+    "name": "Miss Fortune",
+    "type": "AD"
+  },
+  {
+    "name": "Mordekaiser",
+    "type": "AP"
+  },
+  {
+    "name": "Morgana",
+    "type": "AP"
+  },
+  {
+    "name": "Naafiri",
+    "type": "AD"
+  },
+  {
+    "name": "Nami",
+    "type": "AP"
+  },
+  {
+    "name": "Nasus",
+    "type": "AD"
+  },
+  {
+    "name": "Nautilus",
+    "type": "AP"
+  },
+  {
+    "name": "Neeko",
+    "type": "AP"
+  },
+  {
+    "name": "Nidalee",
+    "type": "AP"
+  },
+  {
+    "name": "Nilah",
+    "type": "AD"
+  },
+  {
+    "name": "Nocturne",
+    "type": "AD"
+  },
+  {
+    "name": "Nunu & Willump",
+    "type": "AP"
+  },
+  {
+    "name": "Olaf",
+    "type": "AD"
+  },
+  {
+    "name": "Orianna",
+    "type": "AP"
+  },
+  {
+    "name": "Ornn",
+    "type": "AP"
+  },
+  {
+    "name": "Pantheon",
+    "type": "AD"
+  },
+  {
+    "name": "Poppy",
+    "type": "AD"
+  },
+  {
+    "name": "Pyke",
+    "type": "AD"
+  },
+  {
+    "name": "Qiyana",
+    "type": "AD"
+  },
+  {
+    "name": "Quinn",
+    "type": "AD"
+  },
+  {
+    "name": "Rakan",
+    "type": "AP"
+  },
+  {
+    "name": "Rammus",
+    "type": "AP"
+  },
+  {
+    "name": "Rek'Sai",
+    "type": "AD"
+  },
+  {
+    "name": "Rell",
+    "type": "AP"
+  },
+  {
+    "name": "Renata Glasc",
+    "type": "AP"
+  },
+  {
+    "name": "Renekton",
+    "type": "AD"
+  },
+  {
+    "name": "Rengar",
+    "type": "AD"
+  },
+  {
+    "name": "Riven",
+    "type": "AD"
+  },
+  {
+    "name": "Rumble",
+    "type": "AP"
+  },
+  {
+    "name": "Ryze",
+    "type": "AP"
+  },
+  {
+    "name": "Samira",
+    "type": "AD"
+  },
+  {
+    "name": "Sejuani",
+    "type": "AP"
+  },
+  {
+    "name": "Senna",
+    "type": "AD"
+  },
+  {
+    "name": "Seraphine",
+    "type": "AP"
+  },
+  {
+    "name": "Sett",
+    "type": "AD"
+  },
+  {
+    "name": "Shaco",
+    "type": "HYBRID"
+  },
+  {
+    "name": "Shen",
+    "type": "AD"
+  },
+  {
+    "name": "Shyvana",
+    "type": "HYBRID"
+  },
+  {
+    "name": "Singed",
+    "type": "AP"
+  },
+  {
+    "name": "Sion",
+    "type": "AD"
+  },
+  {
+    "name": "Sivir",
+    "type": "AD"
+  },
+  {
+    "name": "Skarner",
+    "type": "AD"
+  },
+  {
+    "name": "Smolder",
+    "type": "AD"
+  },
+  {
+    "name": "Sona",
+    "type": "AP"
+  },
+  {
+    "name": "Soraka",
+    "type": "AP"
+  },
+  {
+    "name": "Swain",
+    "type": "AP"
+  },
+  {
+    "name": "Sylas",
+    "type": "AP"
+  },
+  {
+    "name": "Syndra",
+    "type": "AP"
+  },
+  {
+    "name": "Tahm Kench",
+    "type": "AP"
+  },
+  {
+    "name": "Taliyah",
+    "type": "AP"
+  },
+  {
+    "name": "Talon",
+    "type": "AD"
+  },
+  {
+    "name": "Taric",
+    "type": "AP"
+  },
+  {
+    "name": "Teemo",
+    "type": "AP"
+  },
+  {
+    "name": "Thresh",
+    "type": "AP"
+  },
+  {
+    "name": "Tristana",
+    "type": "AD"
+  },
+  {
+    "name": "Trundle",
+    "type": "AD"
+  },
+  {
+    "name": "Tryndamere",
+    "type": "AD"
+  },
+  {
+    "name": "Twisted Fate",
+    "type": "AP"
+  },
+  {
+    "name": "Twitch",
+    "type": "AD"
+  },
+  {
+    "name": "Udyr",
+    "type": "HYBRID"
+  },
+  {
+    "name": "Urgot",
+    "type": "AD"
+  },
+  {
+    "name": "Varus",
+    "type": "HYBRID"
+  },
+  {
+    "name": "Vayne",
+    "type": "AD"
+  },
+  {
+    "name": "Veigar",
+    "type": "AP"
+  },
+  {
+    "name": "Vel'Koz",
+    "type": "AP"
+  },
+  {
+    "name": "Vex",
+    "type": "AP"
+  },
+  {
+    "name": "Vi",
+    "type": "AD"
+  },
+  {
+    "name": "Viego",
+    "type": "AD"
+  },
+  {
+    "name": "Viktor",
+    "type": "AP"
+  },
+  {
+    "name": "Vladimir",
+    "type": "AP"
+  },
+  {
+    "name": "Volibear",
+    "type": "HYBRID"
+  },
+  {
+    "name": "Warwick",
+    "type": "AD"
+  },
+  {
+    "name": "Wukong",
+    "type": "AD"
+  },
+  {
+    "name": "Xayah",
+    "type": "AD"
+  },
+  {
+    "name": "Xerath",
+    "type": "AP"
+  },
+  {
+    "name": "Xin Zhao",
+    "type": "AD"
+  },
+  {
+    "name": "Yasuo",
+    "type": "AD"
+  },
+  {
+    "name": "Yone",
+    "type": "AD"
+  },
+  {
+    "name": "Yorick",
+    "type": "AD"
+  },
+  {
+    "name": "Yunara",
+    "type": "AD"
+  },
+  {
+    "name": "Yuumi",
+    "type": "AP"
+  },
+  {
+    "name": "Zaahen",
+    "type": "AD"
+  },
+  {
+    "name": "Zac",
+    "type": "AP"
+  },
+  {
+    "name": "Zed",
+    "type": "AD"
+  },
+  {
+    "name": "Zeri",
+    "type": "AD"
+  },
+  {
+    "name": "Ziggs",
+    "type": "AP"
+  },
+  {
+    "name": "Zilean",
+    "type": "AP"
+  },
+  {
+    "name": "Zoe",
+    "type": "AP"
+  },
+  {
+    "name": "Zyra",
+    "type": "AP"
+  }
+]
