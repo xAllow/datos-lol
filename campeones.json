@@ -44,7 +44,7 @@
     "type": "AD"
   },
   {
-    "name": "Aurelion Sol",
+    "name": "AurelionSol",
     "type": "AP"
   },
   {
@@ -60,7 +60,7 @@
     "type": "AP"
   },
   {
-    "name": "Bel'Veth",
+    "name": "Belveth",
     "type": "AD"
   },
   {
@@ -92,7 +92,7 @@
     "type": "AP"
   },
   {
-    "name": "Cho'Gath",
+    "name": "Chogath",
     "type": "AP"
   },
   {
@@ -108,7 +108,7 @@
     "type": "AP"
   },
   {
-    "name": "Dr. Mundo",
+    "name": "DrMundo",
     "type": "AD"
   },
   {
@@ -132,7 +132,7 @@
     "type": "AD"
   },
   {
-    "name": "Fiddlesticks",
+    "name": "FiddleSticks",
     "type": "AP"
   },
   {
@@ -200,7 +200,7 @@
     "type": "AP"
   },
   {
-    "name": "Jarvan IV",
+    "name": "JarvanIV",
     "type": "AD"
   },
   {
@@ -220,11 +220,11 @@
     "type": "AD"
   },
   {
-    "name": "K'Sante",
+    "name": "KSante",
     "type": "AD"
   },
   {
-    "name": "Kai'Sa",
+    "name": "Kaisa",
     "type": "HYBRID"
   },
   {
@@ -260,7 +260,7 @@
     "type": "AP"
   },
   {
-    "name": "Kha'Zix",
+    "name": "Khazix",
     "type": "AD"
   },
   {
@@ -272,15 +272,15 @@
     "type": "AD"
   },
   {
-    "name": "Kog'Maw",
+    "name": "KogMaw",
     "type": "HYBRID"
   },
   {
-    "name": "LeBlanc",
+    "name": "Leblanc",
     "type": "AP"
   },
   {
-    "name": "Lee Sin",
+    "name": "LeeSin",
     "type": "AD"
   },
   {
@@ -320,7 +320,7 @@
     "type": "AP"
   },
   {
-    "name": "Master Yi",
+    "name": "MasterYi",
     "type": "AD"
   },
   {
@@ -332,7 +332,11 @@
     "type": "AP"
   },
   {
-    "name": "Miss Fortune",
+    "name": "MissFortune",
+    "type": "AD"
+  },
+  {
+    "name": "MonkeyKing",
     "type": "AD"
   },
   {
@@ -376,7 +380,7 @@
     "type": "AD"
   },
   {
-    "name": "Nunu & Willump",
+    "name": "Nunu",
     "type": "AP"
   },
   {
@@ -420,7 +424,7 @@
     "type": "AP"
   },
   {
-    "name": "Rek'Sai",
+    "name": "RekSai",
     "type": "AD"
   },
   {
@@ -428,7 +432,7 @@
     "type": "AP"
   },
   {
-    "name": "Renata Glasc",
+    "name": "Renata",
     "type": "AP"
   },
   {
@@ -524,7 +528,7 @@
     "type": "AP"
   },
   {
-    "name": "Tahm Kench",
+    "name": "TahmKench",
     "type": "AP"
   },
   {
@@ -560,7 +564,7 @@
     "type": "AD"
   },
   {
-    "name": "Twisted Fate",
+    "name": "TwistedFate",
     "type": "AP"
   },
   {
@@ -588,7 +592,7 @@
     "type": "AP"
   },
   {
-    "name": "Vel'Koz",
+    "name": "Velkoz",
     "type": "AP"
   },
   {
@@ -620,10 +624,6 @@
     "type": "AD"
   },
   {
-    "name": "Wukong",
-    "type": "AD"
-  },
-  {
     "name": "Xayah",
     "type": "AD"
   },
@@ -632,7 +632,7 @@
     "type": "AP"
   },
   {
-    "name": "Xin Zhao",
+    "name": "XinZhao",
     "type": "AD"
   },
   {
