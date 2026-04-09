@@ -54,11 +54,19 @@ def normalize_match_data(match_data: dict[str, Any]) -> dict[str, Any]:
         import json
         with open("campeones.json", "r", encoding="utf-8") as f:
             campeones = json.load(f)
-        champion_type_map = {c["name"]: c["type"] for c in campeones}
+        
+        # Mapeo normalizado (todo a minúsculas y sin espacios) para evitar fallos por capitalización
+        champion_type_map = {c["name"].lower().replace(" ", ""): c["type"] for c in campeones}
+        
         if "participants" in info:
             for participant in info["participants"]:
                 champ_name = participant.get("championName")
-                participant["champion_damage_type"] = champion_type_map.get(champ_name, "UNKNOWN")
+                if champ_name:
+                    # Normalizamos el nombre del campeón de la API para que coincida con nuestro mapa
+                    norm_name = champ_name.lower().replace(" ", "")
+                    participant["champion_damage_type"] = champion_type_map.get(norm_name, "UNKNOWN")
+                else:
+                    participant["champion_damage_type"] = "UNKNOWN"
     except Exception as e:
         print(f"Error añadiendo champion_damage_type: {e}")
 
