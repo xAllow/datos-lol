@@ -44,12 +44,10 @@ def normalize_match_data(match_data: dict[str, Any]) -> dict[str, Any]:
         if "gameEndTimestamp" not in info or info["gameEndTimestamp"] is None:
             info["gameDuration"] = normalize_duration_seconds(info["gameDuration"])
 
-    # Convertimos timestamps absolutos de ms a string legible UTC local de la maquina.
+    # Convertimos timestamps absolutos de ms a objetos datetime de Python (BSON Date en MongoDB).
     for field in ("gameCreation", "gameStartTimestamp", "gameEndTimestamp"):
         if field in info and isinstance(info[field], (int, float)):
-            info[field] = datetime.fromtimestamp(info[field] / 1000).strftime(
-                "%Y-%m-%d %H:%M:%S"
-            )
+            info[field] = datetime.fromtimestamp(info[field] / 1000)
 
     # Añadir champion_damage_type a cada participant
     try:
@@ -116,7 +114,9 @@ def main() -> None:
     if ultima_partida and "info" in ultima_partida and "gameCreation" in ultima_partida["info"]:
         # Igual que en el notebook: usamos info.gameCreation como ultima_fecha.
         ultima_fecha = ultima_partida["info"]["gameCreation"]
-        if isinstance(ultima_fecha, str):
+        if isinstance(ultima_fecha, datetime):
+            start_epoch = int(ultima_fecha.timestamp())
+        elif isinstance(ultima_fecha, str):
             start_epoch = int(
                 datetime.strptime(ultima_fecha, "%Y-%m-%d %H:%M:%S").timestamp()
             )
