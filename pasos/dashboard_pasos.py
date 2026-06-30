@@ -65,14 +65,8 @@ MONGODB_URI = config_value("MONGODB_URI")
 DB_NAME = config_value("DB_NAME", "lol")
 STEPS_COLLECTION_NAME = config_value("COLLECTION_NAME", "pasos")
 LOL_COLLECTION_NAME = config_value("LOL_COLLECTION_NAME", "partidas")
-
-LOL_GAME_NAME = config_value("LOL_GAME_NAME", "xAllow")
-LOL_TAG_LINE = config_value("LOL_TAG_LINE", "ESP")
-LOL_MATCH_REGION = config_value("LOL_MATCH_REGION", "europe")
-LOL_REGION = config_value("LOL_REGION", "EUW1")
 LOL_PUUID = config_value("LOL_PUUID")
-RIOT_API_KEY = config_value("RIOT_API_KEY")
-
+LOL_RIOT_ID = config_value("LOL_RIOT_ID", "xAllow")
 
 if not MONGODB_URI:
     st.error("❌ Falta configurar `MONGODB_URI`. El panel necesita MongoDB para cargar datos.")
@@ -405,7 +399,7 @@ def resolver_puuid_lol() -> str | None:
     try:
         client, collection = obtener_coleccion(LOL_COLLECTION_NAME)
         documento = collection.find_one(
-            {"metadata.targetPuuid": {"$exists": True}},
+            {"metadata.targetPuuid": {"$exists": True, "$nin": [None, ""]}},
             {"_id": 0, "metadata.targetPuuid": 1},
             sort=[("info.gameCreation", -1)],
         )
@@ -415,18 +409,24 @@ def resolver_puuid_lol() -> str | None:
     except Exception:
         pass
 
-    if not RIOT_API_KEY:
-        return None
-
     try:
-        from riotwatcher import RiotWatcher
-
-        riot_watcher = RiotWatcher(RIOT_API_KEY)
-        account = riot_watcher.account.by_riot_id(LOL_MATCH_REGION.upper(), LOL_GAME_NAME, LOL_TAG_LINE)
-        return account["puuid"]
-    except Exception as exc:
-        st.warning(f"No se pudo resolver tu PUUID de LoL: {exc}")
+        client, collection = obtener_coleccion(LOL_COLLECTION_NAME)
+        pipeline = [
+            {"$match": {"info.participants.puuid": {"$exists": True}}},
+            {"$unwind": "$info.participants"},
+            {"$match": {"info.participants.puuid": {"$exists": True, "$nin": [None, ""]}}},
+            {"$group": {"_id": "$info.participants.puuid", "count": {"$sum": 1}}},
+            {"$sort": {"count": -1}},
+            {"$limit": 1},
+        ]
+        resultado = list(collection.aggregate(pipeline))
+        client.close()
+        if resultado:
+            return resultado[0]["_id"]
+    except Exception:
         return None
+
+    return None
 
 
 def firma_datos_lol() -> tuple:
@@ -440,10 +440,22 @@ def firma_datos_lol() -> tuple:
         return ("lol-error",)
 
 
-def extraer_fila_lol(match_data: dict[str, Any], puuid: str) -> dict[str, Any] | None:
+def extraer_fila_lol(match_data: dict[str, Any], puuid: str | None, riot_id: str | None) -> dict[str, Any] | None:
     info = match_data.get("info", {})
     participantes = info.get("participants") or []
-    participante = next((p for p in participantes if p.get("puuid") == puuid), None)
+    
+    # 1. Intentamos buscarte primero por PUUID (es el método más seguro)
+    participante = None
+    if puuid:
+        participante = next((p for p in participantes if p.get("puuid") == puuid), None)
+    
+    # 2. Si no te encuentra por PUUID, te busca por tu Riot ID o antiguo Summoner Name
+    if not participante and riot_id:
+        participante = next(
+            (p for p in participantes if p.get("riotIdGameName") == riot_id or p.get("summonerName") == riot_id), 
+            None
+        )
+        
     if not participante:
         return None
 
@@ -471,19 +483,26 @@ def extraer_fila_lol(match_data: dict[str, Any], puuid: str) -> dict[str, Any] |
 
 
 @st.cache_data(ttl=300)
-def cargar_datos_lol(_firma: tuple, puuid: str) -> pd.DataFrame:
+def cargar_datos_lol(_firma: tuple, puuid: str | None, riot_id: str | None) -> pd.DataFrame:
     client, collection = obtener_coleccion(LOL_COLLECTION_NAME)
-    documentos = list(
-        collection.find(
-            {"info.participants.puuid": puuid},
-            {"_id": 0},
-        ).sort("info.gameCreation", 1)
-    )
+    
+    # Construimos un filtro flexible para capturar todo
+    condiciones = []
+    if puuid:
+        condiciones.append({"info.participants.puuid": puuid})
+    if riot_id:
+        condiciones.append({"info.participants.riotIdGameName": riot_id})
+        condiciones.append({"info.participants.summonerName": riot_id}) # Por si hay registros antiguos
+        
+    filtro = {"$or": condiciones} if condiciones else {}
+    
+    documentos = list(collection.find(filtro, {"_id": 0}).sort("info.gameCreation", 1))
     client.close()
 
     filas = []
     for match_data in documentos:
-        fila = extraer_fila_lol(match_data, puuid)
+        # Pasamos ambos parámetros a la extracción de la fila
+        fila = extraer_fila_lol(match_data, puuid, riot_id)
         if fila:
             filas.append(fila)
 
@@ -500,17 +519,20 @@ def cargar_datos_lol(_firma: tuple, puuid: str) -> pd.DataFrame:
 
 def render_lol_tab() -> None:
     st.header("🎮 Mis stats de LoL")
-    st.caption("Resumen personal desde MongoDB usando las partidas guardadas por el sincronizador.")
+    st.caption("Resumen personal desde MongoDB usando solo las partidas ya guardadas.")
 
     puuid = resolver_puuid_lol()
-    if not puuid:
+    riot_id = LOL_RIOT_ID  # <--- Recuperamos el nombre de la configuración
+    
+    if not puuid and not riot_id:
         st.info(
-            "No pude identificar tu cuenta de LoL. Puedes definir `LOL_PUUID` en el entorno o configurar `RIOT_API_KEY`, `LOL_GAME_NAME` y `LOL_TAG_LINE`."
+            "No pude identificar tu cuenta de LoL. Puedes definir `LOL_PUUID` o `LOL_RIOT_ID` en el entorno."
         )
         return
 
     try:
-        df = cargar_datos_lol(firma_datos_lol(), puuid)
+        # PASAMOS AMBOS AQUÍ:
+        df = cargar_datos_lol(firma_datos_lol(), puuid, riot_id)
     except Exception as e:
         st.error(f"❌ No se pudieron cargar las partidas de LoL: {e}")
         return
@@ -519,13 +541,17 @@ def render_lol_tab() -> None:
         st.warning("No hay partidas de LoL para esa cuenta en MongoDB todavía.")
         return
 
-    años_disponibles = sorted(df["fecha"].dt.year.unique(), reverse=True)
+    años_disponibles = ["Todos"] + sorted(df["fecha"].dt.year.dropna().astype(int).unique(), reverse=True)
     col_filtro1, col_filtro2 = st.columns([1, 1])
 
     with col_filtro1:
         año_seleccionado = st.selectbox("Año", años_disponibles, index=0)
 
-    df_anual = df[df["fecha"].dt.year == año_seleccionado].copy()
+    if año_seleccionado == "Todos":
+        df_anual = df.copy()
+    else:
+        df_anual = df[df["fecha"].dt.year == año_seleccionado].copy()
+
     roles_disponibles = ["Todos"] + sorted(df_anual["role"].fillna("UNKNOWN").astype(str).unique().tolist())
 
     with col_filtro2:
@@ -539,6 +565,7 @@ def render_lol_tab() -> None:
         return
 
     partidas = len(df_anual)
+    partidas_guardadas = len(df)
     victorias = int(df_anual["win"].sum())
     winrate = round((victorias / partidas) * 100, 1) if partidas else 0
     kda_prom = round(df_anual["kda"].mean(), 2)
@@ -548,12 +575,14 @@ def render_lol_tab() -> None:
 
     st.subheader("Resumen general")
     m1, m2, m3, m4, m5, m6 = st.columns(6)
-    m1.metric("Partidas", f"{partidas}")
+    m1.metric("Partidas guardadas", f"{partidas_guardadas}")
     m2.metric("Victorias", f"{victorias}")
     m3.metric("Winrate", f"{winrate}%")
     m4.metric("KDA medio", f"{kda_prom}")
     m5.metric("Daño medio", f"{damage_prom:,}")
     m6.metric("CS/min", f"{cs_min_prom}")
+
+    st.caption(f"Partidas visibles con los filtros actuales: {partidas}")
 
     c1, c2 = st.columns([1, 1.2])
 
@@ -625,7 +654,7 @@ def render_lol_tab() -> None:
 def main() -> None:
     st.title("📊 Mi panel de vida")
     st.markdown("Un lugar para ver pasos, LoL y más métricas personales en pestañas separadas.")
-
+    
     tab_pasos, tab_lol = st.tabs(["🚶 Pasos", "🎮 LoL"])
 
     with tab_pasos:
