@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from pathlib import Path
 from typing import Any
 
 from pymongo import MongoClient, UpdateOne
@@ -7,6 +8,8 @@ from riotwatcher import ApiError, LolWatcher, RiotWatcher
 from dotenv import load_dotenv
 
 load_dotenv()
+
+BASE_DIR = Path(__file__).resolve().parent
 
 # Parametros estaticos (alineados con el notebook)
 RIOT_API_KEY = os.getenv("RIOT_API_KEY")
@@ -52,7 +55,7 @@ def normalize_match_data(match_data: dict[str, Any]) -> dict[str, Any]:
     # Añadir champion_damage_type a cada participant
     try:
         import json
-        with open("campeones.json", "r", encoding="utf-8") as f:
+        with open(BASE_DIR / "campeones.json", "r", encoding="utf-8") as f:
             campeones = json.load(f)
         
         # Mapeo normalizado (todo a minúsculas y sin espacios) para evitar fallos por capitalización

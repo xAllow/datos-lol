@@ -1,0 +1,45 @@
+name: Unificar Drive Daily
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  unificar_drive:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install -r pasos/requirements.txt
+
+      - name: Write Google Drive credentials
+        env:
+          GDRIVE_CREDENTIALS_JSON: ${{ secrets.GDRIVE_CREDENTIALS_JSON }}
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+
+          credentials = os.environ.get("GDRIVE_CREDENTIALS_JSON")
+          if not credentials:
+              raise SystemExit("Falta el secreto GDRIVE_CREDENTIALS_JSON")
+
+          Path("pasos/credentials.json").write_text(credentials, encoding="utf-8")
+          PY
+
+      - name: Run unificar_drive
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          COLLECTION_NAME: ${{ secrets.COLLECTION_NAME }}
+          RAW_COLLECTION_NAME: ${{ secrets.RAW_COLLECTION_NAME }}
+        run: python pasos/unificar_drive.py

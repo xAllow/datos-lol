@@ -1,0 +1,7 @@
+google-api-python-client
+google-auth
+numpy
+pandas
+plotly
+pymongo
+streamlit
