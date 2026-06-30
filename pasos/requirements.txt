@@ -4,4 +4,6 @@ numpy
 pandas
 plotly
 pymongo
+python-dotenv
+riotwatcher
 streamlit

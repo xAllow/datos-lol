@@ -196,7 +196,9 @@ def main() -> None:
             print(f"Error descargando {match_id}: {exc}")
             continue
 
-        new_matches.append(normalize_match_data(match_data))
+        match_data = normalize_match_data(match_data)
+        match_data.setdefault("metadata", {})["targetPuuid"] = puuid
+        new_matches.append(match_data)
 
         if idx % 50 == 0:
             print(f"Descargadas {idx}/{len(new_ids)} partidas...")
