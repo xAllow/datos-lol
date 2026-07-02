@@ -3,12 +3,13 @@ import io
 import glob
 from pathlib import Path
 import pandas as pd
-
+import sys
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
 from googleapiclient.http import MediaIoBaseDownload
 
-
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 # =========================================================
 # 🔐 CONFIG
 # =========================================================
@@ -405,21 +406,11 @@ if __name__ == '__main__':
         service = conectar_drive()
         archivos = listar_csv(service)
 
-        client, raw_collection, _ = obtener_collecciones_mongo()
-        raw_count = raw_collection.count_documents({}) if raw_collection is not None else 0
-        if client is not None:
-            client.close()
-
-        if raw_count == 0:
-            print("📥 Primer arranque detectado: cargando drive_csv local a Mongo...")
-            df_resultado = bootstrap_desde_drive_csv_locales(archivos)
-        else:
-            df_resultado = procesar_todos_los_csv_de_drive(service, archivos)
+        df_resultado = procesar_todos_los_csv_de_drive(service, archivos)
 
         if df_resultado is not None and not df_resultado.empty:
             print("\n✅ Actualizado correctamente")
             print(f"📊 Días: {len(df_resultado)}")
-
         else:
             print("❌ Sin datos")
 
