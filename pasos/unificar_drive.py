@@ -4,6 +4,8 @@ import glob
 from pathlib import Path
 import pandas as pd
 import sys
+import json
+
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
 from googleapiclient.http import MediaIoBaseDownload
@@ -27,10 +29,27 @@ CARPETA_BOOTSTRAP = './drive_csv'
 # =========================================================
 
 def conectar_drive():
-    creds = service_account.Credentials.from_service_account_file(
-        SERVICE_ACCOUNT_FILE,
-        scopes=SCOPES
-    )
+    creds_json_env = os.getenv("GDRIVE_CREDENTIALS_JSON")
+
+    if creds_json_env:
+        # Estamos en CI (GitHub Actions): las credenciales vienen como JSON en variable de entorno
+        info = json.loads(creds_json_env)
+        creds = service_account.Credentials.from_service_account_info(
+            info,
+            scopes=SCOPES
+        )
+    elif SERVICE_ACCOUNT_FILE.exists():
+        # Estamos en local: las credenciales vienen del archivo credentials.json
+        creds = service_account.Credentials.from_service_account_file(
+            SERVICE_ACCOUNT_FILE,
+            scopes=SCOPES
+        )
+    else:
+        raise RuntimeError(
+            "No se encontraron credenciales de Google Drive. "
+            "Define GDRIVE_CREDENTIALS_JSON como variable de entorno o coloca credentials.json en el directorio."
+        )
+
     return build('drive', 'v3', credentials=creds)
 
 
