@@ -4,13 +4,14 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-from config import (
+from dashboard_config import (
     obtener_coleccion,
     LOL_COLLECTION_NAME,
     LOL_PUUID,
     LOL_RIOT_ID,
     duration_to_seconds,
 )
+
 
 
 def resolver_puuid_lol() -> str | None:

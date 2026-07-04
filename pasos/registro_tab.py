@@ -5,7 +5,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-from config import GOOGLE_SHEET_CSV_URL
+from dashboard_config import GOOGLE_SHEET_CSV_URL
 
 
 def parsear_duracion(valor) -> float:

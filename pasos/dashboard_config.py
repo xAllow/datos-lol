@@ -68,7 +68,6 @@ BANK_CSV_URL = config_value(
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vS3W2mNkmAQdVDZTVbQ0funkRGHMzbhX3uEfaTIQhiqd8rQ7r4FFwOfhJJWrSwHKGGyqI1WMk0xn6Jg/pub?output=csv",
 )
 
-
 if not MONGODB_URI:
     st.error("❌ Falta configurar `MONGODB_URI`. El panel necesita MongoDB para cargar datos.")
     st.stop()

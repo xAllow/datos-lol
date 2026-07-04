@@ -5,12 +5,13 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-from config import (
+from dashboard_config import (
     obtener_coleccion,
     STEPS_COLLECTION_NAME,
     normalize_day_series,
     MESES_ES,
 )
+
 
 DIAS_ES = {
     "Monday": "Lunes", "Tuesday": "Martes", "Wednesday": "Miércoles",
