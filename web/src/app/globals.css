@@ -1,0 +1,164 @@
+@import "tailwindcss";
+@import "react-grid-layout/css/styles.css";
+@import "react-resizable/css/styles.css";
+
+:root {
+  color-scheme: light;
+  --plano: #f9f9f7;
+  --superficie: #fcfcfb;
+  --superficie-2: #f2f1ee;
+  --tinta: #0b0b0b;
+  --tinta-2: #52514e;
+  --tinta-3: #898781;
+  --rejilla: #e1e0d9;
+  --eje: #c3c2b7;
+  --borde: rgba(11, 11, 11, 0.10);
+  --acento: #2a78d6;
+  --bueno: #0ca30c;
+  --critico: #d03b3b;
+  --sombra: 0 1px 2px rgba(11, 11, 11, 0.04);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --plano: #0d0d0d;
+  --superficie: #1a1a19;
+  --superficie-2: #232322;
+  --tinta: #ffffff;
+  --tinta-2: #c3c2b7;
+  --tinta-3: #898781;
+  --rejilla: #2c2c2a;
+  --eje: #383835;
+  --borde: rgba(255, 255, 255, 0.10);
+  --acento: #3987e5;
+  --sombra: none;
+}
+
+* {
+  border-color: var(--borde);
+}
+
+html,
+body {
+  background: var(--plano);
+  color: var(--tinta);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Piezas reutilizables ---------- */
+
+.tarjeta {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  box-shadow: var(--sombra);
+}
+
+.control {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  color: var(--tinta);
+  font-size: 13px;
+  height: 32px;
+  padding: 0 8px;
+  transition: border-color 0.15s ease;
+}
+
+.control:hover {
+  border-color: var(--eje);
+}
+
+.control:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 1px;
+}
+
+.etiqueta-control {
+  color: var(--tinta-3);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Rejilla arrastrable ---------- */
+
+.react-grid-item.react-grid-placeholder {
+  background: var(--acento);
+  border-radius: 12px;
+  opacity: 0.12;
+}
+
+.react-grid-item > .react-resizable-handle {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.react-grid-item:hover > .react-resizable-handle {
+  opacity: 0.55;
+}
+
+.react-grid-item > .react-resizable-handle::after {
+  border-right-color: var(--tinta-3);
+  border-bottom-color: var(--tinta-3);
+}
+
+.tablero-bloqueado .react-grid-item > .react-resizable-handle {
+  display: none;
+}
+
+.asa-arrastre {
+  cursor: grab;
+}
+
+.react-grid-item.react-draggable-dragging {
+  z-index: 30;
+}
+
+.react-grid-item.react-draggable-dragging .tarjeta {
+  border-color: var(--acento);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+}
+
+/* ---------- Scrollbars discretas ---------- */
+
+.scroll-fino {
+  scrollbar-width: thin;
+  scrollbar-color: var(--eje) transparent;
+}
+
+.scroll-fino::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scroll-fino::-webkit-scrollbar-thumb {
+  background: var(--eje);
+  border-radius: 999px;
+}
+
+.scroll-fino::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------- Recharts ---------- */
+
+.recharts-surface {
+  overflow: visible;
+}
+
+.recharts-cartesian-axis-tick text {
+  fill: var(--tinta-3);
+  font-size: 11px;
+}
+
+.recharts-legend-item-text {
+  color: var(--tinta-2) !important;
+  font-size: 12px;
+}
