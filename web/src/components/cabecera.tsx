@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { Monitor, Moon, Sun } from "lucide-react";
 
-export type ClavePestana = "pasos" | "lol" | "registro" | "finanzas";
+export type ClavePestana = "pasos" | "lol" | "actividades" | "registro" | "finanzas";
 
 const PESTANAS: { clave: ClavePestana; texto: string }[] = [
   { clave: "pasos", texto: "Pasos" },
   { clave: "lol", texto: "League of Legends" },
+  { clave: "actividades", texto: "Actividades" },
   { clave: "registro", texto: "Registro" },
   { clave: "finanzas", texto: "Finanzas" },
 ];

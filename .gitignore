@@ -3,3 +3,4 @@
 __pycache__/
 *.pyc
 pasos/credentials.json
+actividades/credentials.json

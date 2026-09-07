@@ -68,3 +68,42 @@ export type Movimiento = {
 };
 
 export type RespuestaFinanzas = { movimientos: Movimiento[] };
+
+export type TipoActividad = "RUNNING" | "WALKING" | "SWIMMING" | "TRAINING";
+
+export type ZonasFc = { z1: number; z2: number; z3: number; z4: number; z5: number };
+
+export type ZonasRitmo = {
+  rapido: number;
+  medio: number;
+  trote: number;
+  caminando: number;
+  parado: number;
+};
+
+export type Actividad = {
+  id: string;
+  tipo: TipoActividad;
+  fecha: number;
+  duracionActiva: number;
+  duracionTotal: number;
+  distancia: number;
+  calorias: number;
+  pasos: number;
+  fcMedia: number;
+  fcMaxima: number;
+  velMedia: number;
+  velMaxima: number;
+  elevacion: number | null;
+  mejor400: number | null;
+  mejor1km: number | null;
+  mejor2km: number | null;
+  mejor5km: number | null;
+  mejor10km: number | null;
+  zonasFc: ZonasFc | null;
+  zonasRitmo: ZonasRitmo | null;
+  traza: [number, number][] | null;
+  fuente: string | null;
+};
+
+export type RespuestaActividades = { actividades: Actividad[] };

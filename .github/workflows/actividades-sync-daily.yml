@@ -1,0 +1,44 @@
+name: Actividades Sync Daily
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+jobs:
+  sync_actividades:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install -r actividades/requirements.txt
+
+      - name: Write Google Drive credentials
+        env:
+          GDRIVE_CREDENTIALS_JSON: ${{ secrets.GDRIVE_CREDENTIALS_JSON }}
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+
+          credentials = os.environ.get("GDRIVE_CREDENTIALS_JSON")
+          if not credentials:
+              raise SystemExit("Falta el secreto GDRIVE_CREDENTIALS_JSON")
+
+          Path("actividades/credentials.json").write_text(credentials, encoding="utf-8")
+          PY
+
+      - name: Run sync_actividades
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          ACTIVIDADES_COLLECTION_NAME: ${{ secrets.ACTIVIDADES_COLLECTION_NAME }}
+        run: python actividades/sync_actividades.py

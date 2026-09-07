@@ -35,3 +35,4 @@ export async function getDb(): Promise<Db> {
 
 export const COLECCION_PASOS = process.env.COLLECTION_NAME || "pasos";
 export const COLECCION_LOL = process.env.LOL_COLLECTION_NAME || "partidas";
+export const COLECCION_ACTIVIDADES = process.env.ACTIVIDADES_COLLECTION_NAME || "actividades";

@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { Cabecera, type ClavePestana } from "@/components/cabecera";
 import { PestanaPasos } from "@/components/tabs/pasos";
 import { PestanaLol } from "@/components/tabs/lol";
+import { PestanaActividades } from "@/components/tabs/actividades";
 import { PestanaRegistro } from "@/components/tabs/registro";
 import { PestanaFinanzas } from "@/components/tabs/finanzas";
 
-const CLAVES: ClavePestana[] = ["pasos", "lol", "registro", "finanzas"];
+const CLAVES: ClavePestana[] = ["pasos", "lol", "actividades", "registro", "finanzas"];
 
 export default function Pagina() {
   const [activa, setActiva] = useState<ClavePestana>("pasos");
@@ -42,6 +43,7 @@ export default function Pagina() {
       <main className="mx-auto max-w-[1800px] px-4 py-4 sm:px-6">
         {activa === "pasos" && <PestanaPasos />}
         {activa === "lol" && <PestanaLol />}
+        {activa === "actividades" && <PestanaActividades />}
         {activa === "registro" && <PestanaRegistro />}
         {activa === "finanzas" && <PestanaFinanzas />}
       </main>
