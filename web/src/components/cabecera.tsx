@@ -9,9 +9,6 @@ export type ClavePestana = "pasos" | "lol" | "actividades" | "registro" | "finan
 const PESTANAS: { clave: ClavePestana; texto: string }[] = [
   { clave: "pasos", texto: "Pasos" },
   { clave: "lol", texto: "League of Legends" },
-  { clave: "actividades", texto: "Actividades" },
-  { clave: "registro", texto: "Registro" },
-  { clave: "finanzas", texto: "Finanzas" },
 ];
 
 export function Cabecera({

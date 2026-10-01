@@ -328,33 +328,26 @@ def formato_soportado(nombre_archivo):
 
 
 def extraer_df_diario(nombre_archivo, lector_csv):
-    FUENTES_HEALTH_CONNECT = [
-        'com.sec.android.app.shealth',
-        'com.huami.watch.hmwatchmanager'
-    ]
-
     if "Health Connect" in nombre_archivo and nombre_archivo.startswith("Pasos"):
         df = pd.read_csv(lector_csv, header=None)
 
         if df.empty:
             return None
 
-        # Desde ~sept. 2026 la app exporta con cabecera "Fecha,Hora,Pasos" y ya
-        # sin columna de dispositivo: Health Connect entrega el total unificado,
-        # asi que no hace falta (ni se puede) filtrar por origen.
-        formato_nuevo = str(df.iloc[0, 0]).strip() == "Fecha"
+        # El formato se distingue por el numero de columnas, no por el texto de
+        # la cabecera: la celda [0,0] dice "Fecha" en los dos formatos, asi que
+        # comparar contra ese texto nunca detectaba el formato antiguo (con
+        # columna de dispositivo) y acababa sumando varios dispositivos a la vez.
+        tiene_origen = df.shape[1] >= 4
 
-        if formato_nuevo:
+        if tiene_origen:
+            df = df.iloc[1:, :4].copy()
+            df.columns = ['fecha_hora_inicio', 'hora_fin', 'pasos', 'origen']
+        else:
             if df.shape[1] < 3:
                 return None
             df = df.iloc[1:, :3].copy()
             df.columns = ['fecha_hora_inicio', 'hora_fin', 'pasos']
-        else:
-            if len(df.columns) < 4:
-                return None
-            df.columns = ['fecha_hora_inicio', 'hora_fin', 'pasos', 'origen']
-            df['origen'] = df['origen'].astype(str).str.strip()
-            df = df[df['origen'].isin(FUENTES_HEALTH_CONNECT)]
 
         if df.empty:
             return None
@@ -376,6 +369,16 @@ def extraer_df_diario(nombre_archivo, lector_csv):
 
         if df.empty:
             return None
+
+        if tiene_origen:
+            # Varios dispositivos (reloj, movil, Fitbit...) registran los mismos
+            # pasos por separado en el mismo archivo: sumarlos duplicaba o
+            # triplicaba el total. Se suma cada dispositivo por su cuenta y se
+            # toma el maximo entre ellos, asumiendo que se solapan en vez de
+            # sumar actividad distinta.
+            df['origen'] = df['origen'].astype(str).str.strip()
+            por_dispositivo = df.groupby(['fecha', 'origen'])['pasos'].sum().reset_index()
+            return por_dispositivo.groupby('fecha')['pasos'].max().reset_index()
 
         return df.groupby('fecha')['pasos'].sum().reset_index()
 
